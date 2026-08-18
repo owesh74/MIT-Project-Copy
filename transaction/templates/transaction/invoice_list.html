@@ -47,10 +47,15 @@
                         </span>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-outline-primary" title="Invoice edit not yet built on the backend">
+                        <a href="{% url 'edit_invoice' invoice.id %}" class="btn btn-sm btn-outline-primary"
+                           hx-get="{% url 'edit_invoice' invoice.id %}" hx-select="#main-content"
+                           hx-target="#main-content" hx-swap="outerHTML" hx-push-url="true"
+                           title="Edit Invoice">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a href="#" class="btn btn-sm btn-outline-danger" title="Invoice delete not yet built on the backend">
+                        <a href="{% url 'delete_invoice' invoice.id %}" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Delete this invoice?');"
+                           title="Delete Invoice">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>

@@ -7,6 +7,8 @@ urlpatterns = [
     path("invoices/", views.invoice_list, name="invoice_list"),
     path("invoice/add/", views.add_invoice, name="add_invoice"),
     path("invoice/save/", views.save_invoice, name="save_invoice"),
+    path("invoice/edit/<int:pk>/", views.edit_invoice, name="edit_invoice"),
+    path("invoice/delete/<int:pk>/", views.delete_invoice, name="delete_invoice"),
     path("service/<int:pk>/", views.service_details, name="service_details"),
 
     # Payments
