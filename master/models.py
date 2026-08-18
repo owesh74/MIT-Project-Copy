@@ -7,6 +7,7 @@ class CompanyProfile(models.Model):
 
     email = models.EmailField()
     phone = models.CharField(max_length=15)
+    website = models.CharField(max_length=150, blank=True)
 
     gst_number = models.CharField(max_length=20)
     pan_number = models.CharField(max_length=20)
@@ -78,6 +79,13 @@ class Service(models.Model):
 
     service_name = models.CharField(max_length=100)
 
+    hsn_code = models.CharField(
+        max_length=20,
+        blank=True,
+        verbose_name="HSN/SAC Code",
+        help_text="HSN/SAC code shown on invoice and quotation PDFs."
+    )
+
     description = models.TextField()
 
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -109,3 +117,5 @@ class Service(models.Model):
 
     def __str__(self):
         return self.service_name
+
+

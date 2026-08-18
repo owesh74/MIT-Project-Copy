@@ -80,3 +80,6 @@ dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.index)));
 let autoSlide = setInterval(() => goTo(current + 1), 6000);
 track.parentElement.addEventListener('mouseenter', () => clearInterval(autoSlide));
 track.parentElement.addEventListener('mouseleave', () => { autoSlide = setInterval(() => goTo(current + 1), 6000); });
+
+
+

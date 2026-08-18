@@ -1,0 +1,91 @@
+{% extends "layout/app_shell.html" %}
+
+{% block page_title %}Quotations{% endblock %}
+
+{% block content %}
+
+<div class="page-heading d-flex justify-content-between align-items-start flex-wrap gap-2">
+    <div>
+        <h2>Quotation Management</h2>
+        <p>Create and track price quotes sent to clients</p>
+    </div>
+    <a href="{% url 'add_quotation' %}" class="btn-shell-primary text-decoration-none"
+       hx-get="{% url 'add_quotation' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-plus me-1"></i> Create Quotation
+    </a>
+</div>
+
+<div class="shell-card">
+    <div class="shell-card-body">
+        <input type="text" class="form-control mb-3" id="searchQuotation" placeholder="Search Quotation...">
+
+        <table class="shell-table">
+            <thead>
+                <tr>
+                    <th>Quote No</th>
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Valid Until</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="quotationTable">
+            {% for quotation in quotations %}
+                <tr>
+                    <td>{{ quotation.quote_number }}</td>
+                    <td>{{ quotation.client.client_name }}</td>
+                    <td>{{ quotation.quote_date }}</td>
+                    <td>{{ quotation.valid_until }}</td>
+                    <td>₹ {{ quotation.grand_total }}</td>
+                    <td>
+                        <span class="badge-status
+                            {% if quotation.status == 'Draft' %}badge-draft
+                            {% elif quotation.status == 'Accepted' %}badge-generated
+                            {% else %}badge-cancelled{% endif %}">
+                            {{ quotation.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{% url 'quotation_pdf' quotation.id %}" class="btn btn-sm btn-outline-success"
+                           title="Download Quotation PDF">
+                            <i class="fa fa-file-pdf"></i>
+                        </a>
+                        <a href="{% url 'edit_quotation' quotation.id %}" class="btn btn-sm btn-outline-primary"
+                           hx-get="{% url 'edit_quotation' quotation.id %}" hx-select="#main-content"
+                           hx-target="#main-content" hx-swap="outerHTML" hx-push-url="true"
+                           title="Edit Quotation">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="{% url 'delete_quotation' quotation.id %}" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Delete this quotation?');"
+                           title="Delete Quotation">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="7" class="text-center text-muted py-4">No Quotation Found</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+(function () {
+    const input = document.getElementById("searchQuotation");
+    if (!input) return;
+    input.addEventListener("keyup", function () {
+        let value = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#quotationTable tr");
+        rows.forEach(function (row) {
+            row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+        });
+    });
+})();
+</script>
+
+{% endblock %}

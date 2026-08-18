@@ -12,6 +12,7 @@ class CompanyProfileForm(forms.ModelForm):
             "owner_name": forms.TextInput(attrs={"class": "form-control"}),
             "email": forms.EmailInput(attrs={"class": "form-control"}),
             "phone": forms.TextInput(attrs={"class": "form-control"}),
+            "website": forms.TextInput(attrs={"class": "form-control", "placeholder": "www.example.com"}),
             "gst_number": forms.TextInput(attrs={"class": "form-control"}),
             "pan_number": forms.TextInput(attrs={"class": "form-control"}),
             "address": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
@@ -70,8 +71,11 @@ class ServiceForm(forms.ModelForm):
 
         widgets = {
             "service_name": forms.TextInput(attrs={"class": "form-control"}),
+            "hsn_code": forms.TextInput(attrs={"class": "form-control", "placeholder": "e.g. 998313"}),
             "description": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
             "price": forms.NumberInput(attrs={"class": "form-control"}),
             "gst": forms.Select(attrs={"class": "form-select"}),
             "is_active": forms.CheckboxInput(attrs={"class": "form-check-input"}),
         }
+
+

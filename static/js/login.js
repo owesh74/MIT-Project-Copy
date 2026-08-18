@@ -23,3 +23,5 @@ document.getElementById('loginForm').addEventListener('submit', function () {
   btnArrow.style.display  = 'none';
   spinner.style.display   = 'inline-flex';
 });
+
+

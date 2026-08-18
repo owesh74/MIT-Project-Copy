@@ -81,3 +81,5 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
   arrow.style.display  = 'none';
   spinner.style.display= 'inline-flex';
 });
+
+

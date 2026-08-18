@@ -1,0 +1,173 @@
+{% extends "layout/app_shell.html" %}
+{% load static %}
+
+{% block page_title %}{% if quotation %}Edit Quotation{% else %}Create Quotation{% endif %}{% endblock %}
+
+{% block content %}
+
+{{ gst_rates_json|json_script:"gst-rates-data" }}
+
+<div class="page-heading">
+    <h2>{% if quotation %}Edit Quotation{% else %}Create Quotation{% endif %}</h2>
+    <p>{% if quotation %}Update quotation details and items{% else %}Add one or more items to build the quotation{% endif %}</p>
+</div>
+
+<div class="shell-card">
+    <div class="shell-card-body">
+        <form method="POST" action="{% if quotation %}{% url 'edit_quotation' quotation.id %}{% else %}{% url 'save_quotation' %}{% endif %}">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Company</label>
+                    {{ quotation_form.company }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Client</label>
+                    {{ quotation_form.client }}
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label class="form-label">Quote Date</label>
+                    {{ quotation_form.quote_date }}
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label class="form-label">Valid Until</label>
+                    {{ quotation_form.valid_until }}
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label class="form-label">Status</label>
+                    {{ quotation_form.status }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Prepared By</label>
+                    {{ quotation_form.prepared_by }}
+                </div>
+            </div>
+
+            <table class="table table-bordered" id="quotationTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th width="18%">Service (optional)</th>
+                        <th width="27%">Description</th>
+                        <th width="10%">HSN/SAC</th>
+                        <th width="8%">Qty</th>
+                        <th width="13%">Rate</th>
+                        <th width="14%">Amount</th>
+                        <th width="5%">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="quotationBody">
+                {% if items %}
+                    {% for item in items %}
+                    <tr>
+                        <td>
+                            <select name="service[]" class="form-select service">
+                                <option value="">Custom Item</option>
+                                {% for service in services %}
+                                    <option value="{{ service.id }}"
+                                        data-price="{{ service.price }}"
+                                        data-hsn="{{ service.hsn_code }}"
+                                        data-name="{{ service.service_name }}"
+                                        {% if service.id == item.service_id %}selected{% endif %}>
+                                        {{ service.service_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td><textarea name="description[]" class="form-control description" rows="2">{{ item.description }}</textarea></td>
+                        <td><input type="text" name="hsn_code[]" class="form-control hsn" value="{{ item.hsn_code }}"></td>
+                        <td><input type="number" name="qty[]" class="form-control qty" value="{{ item.quantity }}" min="1" step="1"></td>
+                        <td><input type="number" name="rate[]" class="form-control rate" value="{{ item.rate }}" step="0.01"></td>
+                        <td><input type="text" class="form-control amount" value="{{ item.amount }}" readonly></td>
+                        <td><button type="button" class="btn btn-danger btn-sm removeRow">X</button></td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>
+                            <select name="service[]" class="form-select service">
+                                <option value="">Custom Item</option>
+                                {% for service in services %}
+                                    <option value="{{ service.id }}"
+                                        data-price="{{ service.price }}"
+                                        data-hsn="{{ service.hsn_code }}"
+                                        data-name="{{ service.service_name }}">
+                                        {{ service.service_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td><textarea name="description[]" class="form-control description" rows="2"></textarea></td>
+                        <td><input type="text" name="hsn_code[]" class="form-control hsn"></td>
+                        <td><input type="number" name="qty[]" class="form-control qty" value="1" min="1" step="1"></td>
+                        <td><input type="number" name="rate[]" class="form-control rate" step="0.01"></td>
+                        <td><input type="text" class="form-control amount" readonly></td>
+                        <td><button type="button" class="btn btn-danger btn-sm removeRow">X</button></td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+            <button type="button" id="addRow" class="btn btn-success btn-sm">
+                <i class="fa-solid fa-plus me-1"></i> Add Item
+            </button>
+
+            <hr>
+
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <label class="form-label">Terms and Conditions</label>
+                        {{ quotation_form.terms_and_conditions }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Subtotal</th>
+                            <td><input type="text" id="subtotal" class="form-control" value="{{ quotation.subtotal|default:'0' }}" readonly></td>
+                        </tr>
+                        <tr>
+                            <th>Tax (GST)</th>
+                            <td>
+                                {{ quotation_form.gst }}
+                                <input type="number" id="manualTaxRate" name="tax_rate" class="form-control mt-1"
+                                       placeholder="Manual tax rate %" step="0.001"
+                                       value="{% if quotation and not quotation.gst_id %}{{ quotation.tax_rate }}{% endif %}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Tax Due</th>
+                            <td><input type="text" id="taxDue" class="form-control" value="{{ quotation.tax_due|default:'0' }}" readonly></td>
+                        </tr>
+                        <tr>
+                            <th>Other Charges</th>
+                            <td>{{ quotation_form.other_charges }}</td>
+                        </tr>
+                        <tr class="table-success">
+                            <th>Grand Total</th>
+                            <td><input type="text" id="grandTotal" class="form-control fw-bold" value="{{ quotation.grand_total|default:'0' }}" readonly></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn-shell-primary">{% if quotation %}Update Quotation{% else %}Save Quotation{% endif %}</button>
+                <a href="{% url 'quotation_list' %}" class="btn btn-outline-secondary"
+                   hx-get="{% url 'quotation_list' %}" hx-select="#main-content" hx-target="#main-content"
+                   hx-swap="outerHTML" hx-push-url="true">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Placed inside #main-content on purpose: HTMX swaps this fragment in on
+     navigation, and htmx executes <script> tags found inside swapped content,
+     so this keeps working whether the page loads fresh or via sidebar nav. -->
+<script src="{% static 'js/quotation.js' %}"></script>
+
+{% endblock %}

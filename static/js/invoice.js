@@ -147,3 +147,5 @@ if (discountInput) {
     discountInput.addEventListener("keyup", calculateTotals);
     discountInput.addEventListener("change", calculateTotals);
 }
+
+
