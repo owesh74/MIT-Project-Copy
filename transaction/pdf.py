@@ -204,13 +204,7 @@ def _info_box(rows, styles, label_w=32 * mm, value_w=28 * mm):
 def _header_block(doc_label, company, info_rows, styles):
     """Top header: logo + company info on the left, big heading + info box on the right."""
 
-    logo = _company_logo_flowable(company)
-
-    left_cells = []
-    if logo:
-        left_cells.append(logo)
-        left_cells.append(Spacer(1, 3))
-    left_cells.append(Paragraph(company.company_name or "Company Name", styles["company_name"]))
+    logo = _company_logo_flowable(company, max_w=48 * mm, max_h=22 * mm)
 
     address_lines = []
     if company.address:
@@ -226,7 +220,19 @@ def _header_block(doc_label, company, info_rows, styles):
     if company.gst_number:
         address_lines.append(f"GST No.: {company.gst_number}")
 
-    left_cells.append(Paragraph("<br/>".join(address_lines), styles["company_info"]))
+    address_para = Paragraph("<br/>".join(address_lines), styles["company_info"])
+
+    if logo:
+        # The logo image already carries the company name/branding, so we
+        # don't repeat it as a large duplicate heading — just the logo
+        # stacked above the address/contact details, both left-aligned.
+        logo.hAlign = "LEFT"
+        left_cells = [logo, Spacer(1, 6), address_para]
+    else:
+        left_cells = [
+            Paragraph(company.company_name or "Company Name", styles["company_name"]),
+            address_para,
+        ]
 
     right_cells = [
         Paragraph(doc_label, styles["doc_heading"]),
@@ -246,6 +252,7 @@ def _header_block(doc_label, company, info_rows, styles):
     return header_table
 
 
+
 def _green_bar(text, styles, width=None):
     t = Table([[Paragraph(text, styles["section_header"])]], colWidths=[width] if width else None)
     t.setStyle(TableStyle([
@@ -254,6 +261,7 @@ def _green_bar(text, styles, width=None):
         ("TOPPADDING", (0, 0), (-1, -1), 4),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
     ]))
+    t.hAlign = "LEFT"
     return t
 
 

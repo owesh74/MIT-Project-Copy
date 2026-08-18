@@ -21,16 +21,16 @@
 <!-- ================= HEADER ================= -->
 <header class="shell-header">
     <div class="brand">
-        <div class="brand-icon"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="logo1"><img src="../static/images/logo1.png" alt=""></div>
         <div class="brand-text">
-            <div class="title">MIT ERP</div>
-            <div class="subtitle">Inhouse Billing System</div>
+            {% comment %} <div class="title">MIT ERP</div> {% endcomment %}
+            {% comment %} <div class="subtitle">Inhouse Billing System</div> {% endcomment %}
         </div>
     </div>
 
     <div class="app-name">
         <div class="main">Invoice &amp; Billing MIS</div>
-        <div class="sub">MIT Inhouse Project</div>
+      
     </div>
 
     <div class="header-right">
@@ -90,6 +90,13 @@
         <i class="fa-solid fa-file-lines"></i> Invoices
     </a>
 
+    <a href="{% url 'quotation_list' %}"
+       class="side-link {% if 'quotation' in request.resolver_match.url_name %}active{% endif %}"
+       hx-get="{% url 'quotation_list' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-file-invoice"></i> Quotations
+    </a>
+
     <a href="{% url 'payment_list' %}"
        class="side-link {% if 'payment' in request.resolver_match.url_name %}active{% endif %}"
        hx-get="{% url 'payment_list' %}" hx-select="#main-content" hx-target="#main-content"
@@ -121,7 +128,6 @@
     </div>
 
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // live header date
@@ -163,6 +169,51 @@
             h.closest('.side-group').classList.toggle('open');
         });
     });
+
+        // ---------------------------------------------------------
+    // SIDEBAR ACTIVE-STATE SYNC
+    // The sidebar sits outside #main-content, so htmx swaps never
+    // re-render it, and the server-side "active" class (set via
+    // Django template conditionals) only applies on the very first
+    // full page load. This keeps the highlighted link in sync with
+    // whatever page is actually loaded, on every htmx navigation
+    // and on browser back/forward.
+    // ---------------------------------------------------------
+    function updateActiveSidebarLink() {
+        var path = window.location.pathname;
+        var links = document.querySelectorAll('.shell-sidebar .side-link[href]');
+        var matched = null;
+
+        // 1) exact path match first
+        links.forEach(function (link) {
+            if (link.getAttribute('href') === path) {
+                matched = link;
+            }
+        });
+
+        // 2) fallback: keyword match, mirroring the original
+        //    server-side keyword grouping logic (e.g. "gst" in url_name)
+        if (!matched) {
+            var groups = ['gst', 'client', 'service', 'invoice', 'quotation', 'payment', 'compan'];
+            for (var i = 0; i < groups.length; i++) {
+                if (path.indexOf(groups[i]) !== -1) {
+                    links.forEach(function (link) {
+                        if (link.getAttribute('href').indexOf(groups[i]) !== -1) {
+                            matched = link;
+                        }
+                    });
+                    break;
+                }
+            }
+        }
+
+        links.forEach(function (link) { link.classList.remove('active'); });
+        if (matched) matched.classList.add('active');
+    }
+
+    document.body.addEventListener('htmx:afterSwap', updateActiveSidebarLink);
+    document.body.addEventListener('htmx:historyRestore', updateActiveSidebarLink);
+    window.addEventListener('popstate', updateActiveSidebarLink);
 </script>
 
 {% block extra_scripts %}{% endblock %}

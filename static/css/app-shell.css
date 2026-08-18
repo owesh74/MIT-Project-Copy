@@ -324,6 +324,24 @@ body.shell-body {
   font-size: 14px;
 }
 
+.logo1 {
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.logo1 img {
+    width: 150px;
+    height: 140px;
+    max-width: 150px;
+    max-height: 140px;
+    object-fit: contain;
+    display: block;
+}
 /* ---------------- RESPONSIVE ---------------- */
 
 @media (max-width: 900px) {
