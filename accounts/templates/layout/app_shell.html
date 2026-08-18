@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}MIT ERP{% endblock %} | MIT ERP</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/app-shell.css' %}">
+
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="shell-body">
+
+<div id="shell-loading-bar"></div>
+
+<!-- ================= HEADER ================= -->
+<header class="shell-header">
+    <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="brand-text">
+            <div class="title">MIT ERP</div>
+            <div class="subtitle">Inhouse Billing System</div>
+        </div>
+    </div>
+
+    <div class="app-name">
+        <div class="main">Invoice &amp; Billing MIS</div>
+        <div class="sub">MIT Inhouse Project</div>
+    </div>
+
+    <div class="header-right">
+        <span class="header-date" id="shell-header-date"></span>
+        <span class="bell-icon"><i class="fa-regular fa-bell"></i></span>
+        <span>Welcome, <b>{{ request.user.username }}</b></span>
+        <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+    </div>
+</header>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="shell-sidebar" id="shell-sidebar">
+
+    <a href="{% url 'dashboard' %}"
+       class="side-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"
+       hx-get="{% url 'dashboard' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-gauge-high"></i> Dashboard
+    </a>
+
+    <div class="side-section-title">Master</div>
+
+    <a href="{% url 'company_profile' %}"
+       class="side-link {% if request.resolver_match.url_name in 'company_profile,edit_company' %}active{% endif %}"
+       hx-get="{% url 'company_profile' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-building"></i> Company Profile
+    </a>
+
+    <a href="{% url 'gst_list' %}"
+       class="side-link {% if 'gst' in request.resolver_match.url_name %}active{% endif %}"
+       hx-get="{% url 'gst_list' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-file-invoice-dollar"></i> GST Configuration
+    </a>
+
+    <a href="{% url 'client_list' %}"
+       class="side-link {% if 'client' in request.resolver_match.url_name %}active{% endif %}"
+       hx-get="{% url 'client_list' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-users"></i> Clients
+    </a>
+
+    <a href="{% url 'service_list' %}"
+       class="side-link {% if 'service' in request.resolver_match.url_name %}active{% endif %}"
+       hx-get="{% url 'service_list' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-screwdriver-wrench"></i> Services
+    </a>
+
+    <div class="side-section-title">Transactions</div>
+
+    <a href="{% url 'invoice_list' %}"
+       class="side-link {% if 'invoice' in request.resolver_match.url_name %}active{% endif %}"
+       hx-get="{% url 'invoice_list' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-file-lines"></i> Invoices
+    </a>
+
+    <a href="{% url 'payment_list' %}"
+       class="side-link {% if 'payment' in request.resolver_match.url_name %}active{% endif %}"
+       hx-get="{% url 'payment_list' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-money-bill-wave"></i> Payments
+    </a>
+
+    <div class="side-section-title">Reports</div>
+
+    <div class="side-link" style="opacity:0.45; cursor:not-allowed;" title="Reports module not yet built on the backend">
+        <i class="fa-solid fa-chart-column"></i> Reports (coming soon)
+    </div>
+
+</aside>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="shell-main-wrap">
+
+    <div id="shell-messages">
+        {% for message in messages %}
+            <div class="shell-toast {% if message.tags == 'error' %}error{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // live header date
+    document.getElementById('shell-header-date').textContent = new Date().toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'long', year: 'numeric'
+    });
+
+    // loading bar wiring
+    document.body.addEventListener('htmx:beforeRequest', function () {
+        document.getElementById('shell-loading-bar').classList.add('htmx-request');
+    });
+    document.body.addEventListener('htmx:afterRequest', function () {
+        document.getElementById('shell-loading-bar').classList.remove('htmx-request');
+    });
+
+    // graceful error handling: keep shell, show error inside #main-content
+    document.body.addEventListener('htmx:responseError', function (evt) {
+        var main = document.getElementById('main-content');
+        if (main) {
+            main.innerHTML = '<div class="shell-error-box">' +
+                '<strong>Something went wrong loading this page.</strong><br>' +
+                'Please try again, or use the sidebar to navigate elsewhere.' +
+                '</div>';
+        }
+    });
+
+    // auto-dismiss toasts
+    document.querySelectorAll('.shell-toast').forEach(function (el) {
+        setTimeout(function () {
+            el.style.transition = 'opacity 0.3s ease';
+            el.style.opacity = '0';
+            setTimeout(function () { el.remove(); }, 300);
+        }, 4000);
+    });
+
+    // collapsible sidebar groups (for future grouped sections)
+    document.querySelectorAll('.side-group-header').forEach(function (h) {
+        h.addEventListener('click', function () {
+            h.closest('.side-group').classList.toggle('open');
+        });
+    });
+</script>
+
+{% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+{% extends "layout/app_shell.html" %}
+
+{% block page_title %}Clients{% endblock %}
+
+{% block content %}
+
+<div class="page-heading d-flex justify-content-between align-items-start flex-wrap gap-2">
+    <div>
+        <h2>Clients</h2>
+        <p>Manage your client master records</p>
+    </div>
+    <a href="{% url 'add_client' %}" class="btn-shell-primary text-decoration-none"
+       hx-get="{% url 'add_client' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-plus me-1"></i> Add Client
+    </a>
+</div>
+
+<div class="shell-card">
+    <div class="shell-card-body p-0">
+        <table class="shell-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Client Name</th>
+                    <th>Company</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th width="180">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.client_name }}</td>
+                    <td>{{ client.company_name }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>{{ client.phone }}</td>
+                    <td>
+                        {% if client.is_active %}
+                            <span class="badge-active">Active</span>
+                        {% else %}
+                            <span class="badge-inactive">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_client' client.id %}" class="btn btn-sm btn-outline-primary"
+                           hx-get="{% url 'edit_client' client.id %}" hx-select="#main-content"
+                           hx-target="#main-content" hx-swap="outerHTML" hx-push-url="true">
+                            Edit
+                        </a>
+                        <a href="{% url 'delete_client' client.id %}"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Delete this client?');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="7" class="text-center text-muted py-4">No Clients Found.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

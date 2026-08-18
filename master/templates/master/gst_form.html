@@ -1,0 +1,54 @@
+{% extends "layout/app_shell.html" %}
+
+{% block page_title %}GST Configuration{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>GST Configuration</h2>
+    <p>Add or update a GST slab</p>
+</div>
+
+<div class="shell-card">
+    <div class="shell-card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">GST Name</label>
+                    {{ form.gst_name }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">GST Percentage</label>
+                    {{ form.gst_percentage }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">CGST</label>
+                    {{ form.cgst }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">SGST</label>
+                    {{ form.sgst }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">IGST</label>
+                    {{ form.igst }}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-check">
+                        {{ form.is_active }}
+                        <label class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn-shell-primary">Save</button>
+            <a href="{% url 'gst_list' %}" class="btn btn-outline-secondary"
+               hx-get="{% url 'gst_list' %}" hx-select="#main-content" hx-target="#main-content"
+               hx-swap="outerHTML" hx-push-url="true">
+                Back
+            </a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

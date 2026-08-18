@@ -1,0 +1,50 @@
+{% extends "layout/app_shell.html" %}
+
+{% block page_title %}Service{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>Service Details</h2>
+    <p>Add or update a service</p>
+</div>
+
+<div class="shell-card">
+    <div class="shell-card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Service Name</label>
+                    {{ form.service_name }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Price</label>
+                    {{ form.price }}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Description</label>
+                    {{ form.description }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">GST</label>
+                    {{ form.gst }}
+                </div>
+                <div class="col-md-6 mb-3 d-flex align-items-center">
+                    <div class="form-check mt-4">
+                        {{ form.is_active }}
+                        <label class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn-shell-primary">Save</button>
+            <a href="{% url 'service_list' %}" class="btn btn-outline-secondary"
+               hx-get="{% url 'service_list' %}" hx-select="#main-content" hx-target="#main-content"
+               hx-swap="outerHTML" hx-push-url="true">
+                Back
+            </a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

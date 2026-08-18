@@ -1,0 +1,69 @@
+{% extends "layout/app_shell.html" %}
+
+{% block page_title %}Services{% endblock %}
+
+{% block content %}
+
+<div class="page-heading d-flex justify-content-between align-items-start flex-wrap gap-2">
+    <div>
+        <h2>Services</h2>
+        <p>Manage the services your company offers</p>
+    </div>
+    <a href="{% url 'add_service' %}" class="btn-shell-primary text-decoration-none"
+       hx-get="{% url 'add_service' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-plus me-1"></i> Add Service
+    </a>
+</div>
+
+<div class="shell-card">
+    <div class="shell-card-body p-0">
+        <table class="shell-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Service Code</th>
+                    <th>Service Name</th>
+                    <th>Price</th>
+                    <th>GST</th>
+                    <th>Status</th>
+                    <th width="180">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.id }}</td>
+                    <td>{{ service.service_code }}</td>
+                    <td>{{ service.service_name }}</td>
+                    <td>₹ {{ service.price }}</td>
+                    <td>{{ service.gst.gst_percentage }} %</td>
+                    <td>
+                        {% if service.is_active %}
+                            <span class="badge-active">Active</span>
+                        {% else %}
+                            <span class="badge-inactive">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_service' service.id %}" class="btn btn-sm btn-outline-primary"
+                           hx-get="{% url 'edit_service' service.id %}" hx-select="#main-content"
+                           hx-target="#main-content" hx-swap="outerHTML" hx-push-url="true">
+                            Edit
+                        </a>
+                        <a href="{% url 'delete_service' service.id %}"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Delete this service?');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="7" class="text-center text-muted py-4">No Services Found.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

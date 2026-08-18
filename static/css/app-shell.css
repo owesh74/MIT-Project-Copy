@@ -1,0 +1,335 @@
+/* ==========================================================
+   MIT ERP — App Shell Design System
+   Fixed header + fixed sidebar + dynamic #main-content
+   ========================================================== */
+
+:root {
+  --navy-900: #0b2447;
+  --navy-800: #10315b;
+  --navy-700: #14396b;
+  --navy-600: #1a4680;
+  --accent-blue: #1e5fb0;
+  --accent-blue-hover: #174a8a;
+  --accent-yellow: #f2b90f;
+  --bg-light: #f3f5f8;
+  --card-bg: #ffffff;
+  --border-light: #e3e7ee;
+  --text-muted: #6b7685;
+  --text-dark: #1f2937;
+  --success: #1f9d55;
+  --danger: #d9414d;
+  --radius: 10px;
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-md: 0 4px 14px rgba(16, 24, 40, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body.shell-body {
+  margin: 0;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+}
+
+/* ---------------- HEADER ---------------- */
+
+.shell-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: linear-gradient(90deg, var(--navy-900), var(--navy-700));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+}
+
+.shell-header .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  min-width: 220px;
+}
+
+.shell-header .brand .brand-icon {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+.shell-header .brand-text .title { font-weight: 700; font-size: 15px; line-height: 1.2; }
+.shell-header .brand-text .subtitle { font-size: 11px; opacity: 0.75; }
+
+.shell-header .app-name {
+  color: #fff;
+  text-align: center;
+  flex: 1;
+}
+.shell-header .app-name .main { font-weight: 700; font-size: 17px; }
+.shell-header .app-name .sub { font-size: 11px; opacity: 0.75; }
+
+.shell-header .header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #fff;
+}
+.shell-header .header-right .header-date { font-size: 13px; opacity: 0.9; }
+.shell-header .header-right .bell-icon {
+  position: relative;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+.shell-header .btn-logout {
+  background: #fff;
+  color: var(--navy-900);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.shell-header .btn-logout:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+  color: var(--navy-900);
+}
+
+/* ---------------- SIDEBAR ---------------- */
+
+.shell-sidebar {
+  position: fixed;
+  top: 64px; left: 0; bottom: 0;
+  width: 250px;
+  background: var(--navy-800);
+  overflow-y: auto;
+  padding: 14px 0 30px;
+  z-index: 900;
+  transition: transform 0.25s ease;
+}
+
+.shell-sidebar::-webkit-scrollbar { width: 6px; }
+.shell-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 20px;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 14px;
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+.side-link i { width: 18px; text-align: center; opacity: 0.9; }
+.side-link:hover { background: rgba(255,255,255,0.06); color: #fff; }
+.side-link.active {
+  background: rgba(255,255,255,0.08);
+  border-left-color: var(--accent-yellow);
+  color: #fff;
+  font-weight: 600;
+}
+
+.side-section-title {
+  padding: 18px 20px 6px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.45);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.side-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 20px;
+  color: rgba(255,255,255,0.9);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  user-select: none;
+}
+.side-group-header .chevron { transition: transform 0.2s ease; font-size: 11px; opacity: 0.7; }
+.side-group.open .chevron { transform: rotate(180deg); }
+
+.side-group-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+.side-group.open .side-group-body { max-height: 600px; }
+.side-group-body .side-link { padding-left: 46px; font-size: 13.5px; }
+
+/* ---------------- MAIN CONTENT ---------------- */
+
+.shell-main-wrap {
+  margin-left: 250px;
+  padding-top: 64px;
+  min-height: 100vh;
+}
+
+#main-content {
+  padding: 28px 30px 60px;
+  animation: contentIn 0.25s ease;
+}
+
+@keyframes contentIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.htmx-swapping #main-content { opacity: 0; transition: opacity 0.15s ease; }
+
+/* top loading bar */
+#shell-loading-bar {
+  position: fixed;
+  top: 64px; left: 250px; right: 0;
+  height: 3px;
+  background: var(--accent-blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 1100;
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.15s ease;
+}
+#shell-loading-bar.htmx-request { opacity: 1; transform: scaleX(0.7); }
+
+/* ---------------- PAGE HEADER ---------------- */
+
+.page-heading { margin-bottom: 22px; }
+.page-heading h2 { font-size: 21px; font-weight: 700; margin: 0 0 4px; color: var(--text-dark); }
+.page-heading p { color: var(--text-muted); font-size: 13.5px; margin: 0; }
+
+/* ---------------- CARDS ---------------- */
+
+.stat-card, .shell-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.stat-card:hover, .shell-card:hover { box-shadow: var(--shadow-md); }
+
+.stat-card { padding: 20px; text-align: center; }
+.stat-card .stat-icon { font-size: 26px; margin-bottom: 8px; }
+.stat-card h5 { font-size: 13px; color: var(--text-muted); font-weight: 600; margin: 6px 0 4px; }
+.stat-card h2 { font-size: 26px; font-weight: 700; margin: 0; color: var(--navy-900); }
+
+.shell-card-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-light);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--text-dark);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.shell-card-body { padding: 18px 20px; }
+
+/* ---------------- BUTTONS ---------------- */
+
+.btn-shell-primary {
+  background: var(--accent-blue);
+  color: #fff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13.5px;
+  transition: background 0.15s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+.btn-shell-primary:hover { background: var(--accent-blue-hover); color: #fff; transform: translateY(-1px); }
+
+/* ---------------- TABLES ---------------- */
+
+.shell-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.shell-table thead th {
+  background: #f8f9fb;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-light);
+  text-align: left;
+}
+.shell-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+.shell-table tbody tr { transition: background 0.15s ease; }
+.shell-table tbody tr:hover { background: #f7f9fc; }
+
+/* ---------------- BADGES ---------------- */
+
+.badge-active, .badge-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.badge-active { background: #e6f6ec; color: var(--success); }
+.badge-inactive { background: #fdecee; color: var(--danger); }
+.badge-draft { background: #fff4dd; color: #a56b00; }
+.badge-generated { background: #e6f6ec; color: var(--success); }
+.badge-cancelled { background: #fdecee; color: var(--danger); }
+
+/* ---------------- MESSAGES / TOASTS ---------------- */
+
+#shell-messages {
+  position: fixed;
+  top: 78px; right: 20px;
+  z-index: 1200;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.shell-toast {
+  background: #fff;
+  border-left: 4px solid var(--success);
+  box-shadow: var(--shadow-md);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  min-width: 260px;
+  animation: toastIn 0.25s ease;
+}
+.shell-toast.error { border-left-color: var(--danger); }
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ---------------- ERROR STATE ---------------- */
+
+.shell-error-box {
+  background: #fdecee;
+  border: 1px solid #f3c1c6;
+  color: var(--danger);
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  font-size: 14px;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media (max-width: 900px) {
+  .shell-sidebar { transform: translateX(-100%); }
+  .shell-sidebar.mobile-open { transform: translateX(0); }
+  .shell-main-wrap { margin-left: 0; }
+  #shell-loading-bar { left: 0; }
+  .shell-header .brand-text .subtitle, .shell-header .app-name .sub { display: none; }
+}

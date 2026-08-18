@@ -1,0 +1,109 @@
+{% extends "layout/app_shell.html" %}
+{% load static %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>Dashboard</h2>
+    <p>Overview of clients, services, invoices and payments</p>
+</div>
+
+<div class="row g-3">
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon text-primary"><i class="fa-solid fa-users"></i></div>
+            <h5>Clients</h5>
+            <h2>{{ client_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon text-success"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <h5>Services</h5>
+            <h2>{{ service_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon text-warning"><i class="fa-solid fa-file-lines"></i></div>
+            <h5>Invoices</h5>
+            <h2>{{ invoice_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="stat-icon text-danger"><i class="fa-solid fa-money-bill-wave"></i></div>
+            <h5>Payments</h5>
+            <h2>{{ payment_count }}</h2>
+        </div>
+    </div>
+
+</div>
+
+<div class="row g-3 mt-1">
+
+    <div class="col-lg-6">
+        <div class="shell-card">
+            <div class="shell-card-header">Recent Invoices</div>
+            <div class="shell-card-body p-0">
+                <table class="shell-table">
+                    <thead>
+                        <tr>
+                            <th>Invoice</th>
+                            <th>Client</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for invoice in recent_invoices %}
+                        <tr>
+                            <td>{{ invoice.invoice_number }}</td>
+                            <td>{{ invoice.client.client_name }}</td>
+                            <td>₹ {{ invoice.grand_total }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="3" class="text-center text-muted py-3">No Invoice Found</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="shell-card">
+            <div class="shell-card-header">Recent Payments</div>
+            <div class="shell-card-body p-0">
+                <table class="shell-table">
+                    <thead>
+                        <tr>
+                            <th>Invoice</th>
+                            <th>Amount</th>
+                            <th>Mode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for payment in recent_payments %}
+                        <tr>
+                            <td>{{ payment.invoice.invoice_number }}</td>
+                            <td>₹ {{ payment.amount }}</td>
+                            <td>{{ payment.payment_mode }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="3" class="text-center text-muted py-3">No Payment Found</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

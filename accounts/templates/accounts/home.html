@@ -1,0 +1,697 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MITNEXT Software & Services Pvt. Ltd.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo"> <img src="{% static 'images/logo1.png' %}" alt=""> </a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#tech">Technologies</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="{% url 'login' %}" class="nav-login">Login</a>
+    <a href="#contact" class="nav-cta">Get a Free Consultation</a>
+  </div>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-panel">
+    <a href="#hero" onclick="closeDrawer()">Home</a>
+    <a href="#services" onclick="closeDrawer()">Services</a>
+    <a href="#about" onclick="closeDrawer()">About</a>
+    <a href="#portfolio" onclick="closeDrawer()">Portfolio</a>
+    <a href="#tech" onclick="closeDrawer()">Technologies</a>
+    <a href="#team" onclick="closeDrawer()">Team</a>
+    <a href="#contact" onclick="closeDrawer()">Contact</a>
+    <a href="{% url 'login' %}" class="drawer-cta" style="background:#1a1a2e">Login</a>
+    <a href="#contact" class="drawer-cta" onclick="closeDrawer()">Get a Free Consultation</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow fade-up">
+          <div class="hero-eyebrow-dot">
+            <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          Nagpur's Premier Software Partner
+        </div>
+        <h1 class="hero-h1 fade-up delay-1">
+          Building <span class="rotating-word" id="rotatingWord">Future-Ready</span><br>
+          Digital Solutions for<br>Modern Businesses.
+        </h1>
+        <p class="hero-sub fade-up delay-2">
+          MITNEXT Software & Services empowers businesses through innovative software development, mobile applications, quality assurance, and user-focused design solutions.
+        </p>
+        <div class="hero-actions fade-up delay-3">
+          <a href="#contact" class="btn-primary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Schedule a Consultation
+          </a>
+          <a href="#services" class="btn-secondary">
+            Explore Services
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="hero-image-box fade-up delay-2">
+        <div class="hero-img-placeholder">
+       <img src="{% static 'images/heroimg.png' %}" alt="" srcset="">
+        </div>
+        <div class="hero-float-card">
+          <div class="float-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div>
+            <div class="float-label">Projects Delivered</div>
+            <div class="float-value">150+</div>
+          </div>
+        </div>
+        <div class="hero-float-card2">
+          <div class="float-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div>
+            <div class="float-label">Client Satisfaction</div>
+            <div class="float-value">98%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STATS -->
+<section id="trust">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card fade-up">
+        <div class="stat-num"><span class="count-up" data-target="150">0</span><sup>+</sup></div>
+        <div class="stat-label">Projects Delivered</div>
+      </div>
+      <div class="stat-card fade-up delay-1">
+        <div class="stat-num"><span class="count-up" data-target="25">0</span><sup>+</sup></div>
+        <div class="stat-label">Industry Experts</div>
+      </div>
+      <div class="stat-card fade-up delay-2">
+        <div class="stat-num"><span class="count-up" data-target="98">0</span><sup>%</sup></div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+      <div class="stat-card fade-up delay-3">
+        <div class="stat-num"><span class="count-up" data-target="5">0</span><sup>+</sup></div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="fade-up">
+        <div class="img-placeholder">
+                 <img src="{% static 'images/heroimg.png' %}" alt="" srcset="">
+        </div>
+      </div>
+      <div>
+        <div class="section-label fade-up">Who We Are</div>
+        <h2 class="section-title fade-up delay-1">Your Technology Partner for Digital Innovation</h2>
+        <p class="about-body fade-up delay-2">
+          MITNEXT Software & Services is a technology partner committed to helping businesses innovate, scale, and succeed through custom digital solutions. We specialize in software development, mobile applications, quality assurance, and user-centered experiences that drive measurable business impact.
+        </p>
+        <div class="about-card fade-up delay-3">
+          <div class="about-card-title">Our Vision</div>
+          <p>To become a trusted technology partner recognized for innovation, reliability, and transformative digital solutions that redefine what's possible.</p>
+        </div>
+        <div class="about-card fade-up delay-4">
+          <div class="about-card-title">Our Mission</div>
+          <p>To empower organizations through cutting-edge software solutions that accelerate growth, streamline operations, and improve business excellence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="fade-up" style="text-align:center">
+      <div class="section-label" style="justify-content:center">What We Do</div>
+      <h2 class="section-title">Services That Drive Your Business Forward</h2>
+      <p class="section-sub" style="margin:0 auto">End-to-end technology services designed to help your business compete, grow, and lead in the digital era.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up delay-1">
+        <div class="service-icon">
+          <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="service-title">Web Development</div>
+        <p class="service-desc">Custom web applications, enterprise systems, e-commerce solutions, progressive web applications, API integrations, and long-term maintenance services built for performance and scale.</p>
+        <a href="#contact" class="service-arrow">Learn More <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="service-card fade-up delay-2">
+        <div class="service-icon">
+          <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+        </div>
+        <div class="service-title">Mobile App Development</div>
+        <p class="service-desc">Android, iOS, and cross-platform applications designed for performance, scalability, and exceptional user experiences that engage and retain your customers.</p>
+        <a href="#contact" class="service-arrow">Learn More <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="service-card fade-up delay-3">
+        <div class="service-icon">
+          <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        </div>
+        <div class="service-title">QA & Testing</div>
+        <p class="service-desc">Manual testing, automation testing, regression testing, security testing, cross-platform testing, and performance optimization to ensure flawless product delivery.</p>
+        <a href="#contact" class="service-arrow">Learn More <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <div class="service-card fade-up delay-4">
+        <div class="service-icon">
+          <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+        </div>
+        <div class="service-title">UI/UX Design</div>
+        <p class="service-desc">User research, wireframing, prototyping, interface design, usability testing, and design systems that create intuitive, beautiful experiences users love.</p>
+        <a href="#contact" class="service-arrow">Learn More <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="fade-up" style="text-align:center">
+      <div class="section-label" style="justify-content:center">How We Work</div>
+      <h2 class="section-title">Our Development Process</h2>
+      <p class="section-sub" style="margin:0 auto">A structured, transparent approach that ensures quality delivery at every stage of your project.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step fade-up delay-1">
+        <div class="process-dot"><span class="process-num">01</span></div>
+        <div class="process-name">Discovery</div>
+        <p class="process-desc">Deep-dive into your goals, requirements, and challenges.</p>
+      </div>
+      <div class="process-step fade-up delay-2">
+        <div class="process-dot"><span class="process-num">02</span></div>
+        <div class="process-name">Strategy</div>
+        <p class="process-desc">Roadmap planning, architecture, and technology selection.</p>
+      </div>
+      <div class="process-step fade-up delay-3">
+        <div class="process-dot"><span class="process-num">03</span></div>
+        <div class="process-name">Design</div>
+        <p class="process-desc">Wireframes, prototypes, and pixel-perfect UI/UX design.</p>
+      </div>
+      <div class="process-step fade-up delay-4">
+        <div class="process-dot"><span class="process-num">04</span></div>
+        <div class="process-name">Development</div>
+        <p class="process-desc">Agile sprints with clean, scalable, maintainable code.</p>
+      </div>
+      <div class="process-step fade-up delay-5">
+        <div class="process-dot"><span class="process-num">05</span></div>
+        <div class="process-name">Testing</div>
+        <p class="process-desc">Rigorous QA to ensure reliability, performance, and security.</p>
+      </div>
+      <div class="process-step fade-up delay-5">
+        <div class="process-dot"><span class="process-num">06</span></div>
+        <div class="process-name">Deployment</div>
+        <p class="process-desc">Smooth go-live with ongoing support and monitoring.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section id="why">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Why MITNEXT</div>
+      <h2 class="section-title">Built on Trust, Driven by Results</h2>
+      <p class="section-sub">What makes MITNEXT the right technology partner for ambitious businesses across every industry.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-up delay-1">
+        <div class="why-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div>
+        <div class="why-title">Innovation Driven</div>
+        <p class="why-desc">We stay ahead of emerging technologies to deliver solutions that give you a competitive edge — not just today, but for years to come.</p>
+      </div>
+      <div class="why-card fade-up delay-2">
+        <div class="why-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="why-title">Expert Team</div>
+        <p class="why-desc">A skilled team of developers, designers, and QA engineers with deep domain expertise across industries and technology stacks.</p>
+      </div>
+      <div class="why-card fade-up delay-3">
+        <div class="why-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></div>
+        <div class="why-title">Client-Centric Approach</div>
+        <p class="why-desc">Your business goals are our north star. We tailor every solution to your unique needs, ensuring outcomes that matter to you most.</p>
+      </div>
+      <div class="why-card fade-up delay-1">
+        <div class="why-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <div class="why-title">Reliable Delivery</div>
+        <p class="why-desc">On-time, on-budget delivery backed by robust project management processes and a track record of over 150 successful projects.</p>
+      </div>
+      <div class="why-card fade-up delay-2">
+        <div class="why-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></div>
+        <div class="why-title">Transparent Communication</div>
+        <p class="why-desc">Real-time updates, regular sprint demos, and open channels ensure you're always informed and in control of your project.</p>
+      </div>
+      <div class="why-card fade-up delay-3">
+        <div class="why-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg></div>
+        <div class="why-title">Scalable Solutions</div>
+        <p class="why-desc">Architecture built to grow with your business — from MVP to enterprise scale — without costly rebuilds or technical debt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="container">
+    <div class="fade-up" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px">
+      <div>
+        <div class="section-label">Our Work</div>
+        <h2 class="section-title">Projects That Define Our Craft</h2>
+      </div>
+      <a href="#contact" class="btn-secondary" style="white-space:nowrap">View All Projects</a>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card fade-up delay-1">
+        <div class="portfolio-img" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+                      <img src="{% static 'images/prodimg1.png' %}" alt="" srcset="">
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-industry">Healthcare</div>
+          <div class="portfolio-title">Patient Management Platform</div>
+          <p class="portfolio-desc">A comprehensive digital health platform enabling hospitals to manage patient records, appointments, billing, and telemedicine consultations on a unified system.</p>
+          <a href="#contact" class="btn-outline">View Details <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div class="portfolio-card fade-up delay-2">
+        <div class="portfolio-img" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
+            <img src="{% static 'images/prodimg2.png' %}" alt="" srcset="">
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-industry">E-Commerce</div>
+          <div class="portfolio-title">Multi-Vendor Retail Marketplace</div>
+          <p class="portfolio-desc">A scalable e-commerce marketplace connecting thousands of vendors and buyers, with real-time inventory management, advanced analytics, and mobile-first design.</p>
+          <a href="#contact" class="btn-outline">View Details <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div class="portfolio-card fade-up delay-3">
+        <div class="portfolio-img" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
+            <img src="{% static 'images/prodimg3.png' %}" alt="" srcset="">  
+        </div>
+        <div class="portfolio-body">
+          <div class="portfolio-industry">Fintech</div>
+          <div class="portfolio-title">Business Analytics Dashboard</div>
+          <p class="portfolio-desc">An enterprise analytics platform providing real-time financial insights, automated reporting, and predictive intelligence for mid-market financial services companies.</p>
+          <a href="#contact" class="btn-outline">View Details <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<!-- <section id="tech">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Our Stack</div>
+      <h2 class="section-title">Technologies We Master</h2>
+      <p class="section-sub">Modern, battle-tested tools and frameworks that power your digital products.</p>
+    </div>
+    <div class="tech-categories fade-up delay-1">
+      <div>
+        <div class="tech-cat-title">Frontend</div>
+        <div class="tech-badges">
+          <div class="tech-badge"><span class="dot"></span>React.js</div>
+          <div class="tech-badge"><span class="dot"></span>Next.js</div>
+          <div class="tech-badge"><span class="dot"></span>Vue.js</div>
+          <div class="tech-badge"><span class="dot"></span>Angular</div>
+          <div class="tech-badge"><span class="dot"></span>TypeScript</div>
+          <div class="tech-badge"><span class="dot"></span>Tailwind CSS</div>
+        </div>
+      </div>
+      <div>
+        <div class="tech-cat-title">Backend</div>
+        <div class="tech-badges">
+          <div class="tech-badge"><span class="dot"></span>Node.js</div>
+          <div class="tech-badge"><span class="dot"></span>Python</div>
+          <div class="tech-badge"><span class="dot"></span>Django</div>
+          <div class="tech-badge"><span class="dot"></span>Laravel</div>
+          <div class="tech-badge"><span class="dot"></span>Java Spring</div>
+          <div class="tech-badge"><span class="dot"></span>Express.js</div>
+        </div>
+      </div>
+      <div>
+        <div class="tech-cat-title">Mobile</div>
+        <div class="tech-badges">
+          <div class="tech-badge"><span class="dot"></span>React Native</div>
+          <div class="tech-badge"><span class="dot"></span>Flutter</div>
+          <div class="tech-badge"><span class="dot"></span>Swift</div>
+          <div class="tech-badge"><span class="dot"></span>Kotlin</div>
+        </div>
+      </div>
+      <div>
+        <div class="tech-cat-title">Database</div>
+        <div class="tech-badges">
+          <div class="tech-badge"><span class="dot"></span>PostgreSQL</div>
+          <div class="tech-badge"><span class="dot"></span>MySQL</div>
+          <div class="tech-badge"><span class="dot"></span>MongoDB</div>
+          <div class="tech-badge"><span class="dot"></span>Redis</div>
+          <div class="tech-badge"><span class="dot"></span>Firebase</div>
+        </div>
+      </div>
+      <div>
+        <div class="tech-cat-title">Cloud & DevOps</div>
+        <div class="tech-badges">
+          <div class="tech-badge"><span class="dot"></span>AWS</div>
+          <div class="tech-badge"><span class="dot"></span>Google Cloud</div>
+          <div class="tech-badge"><span class="dot"></span>Azure</div>
+          <div class="tech-badge"><span class="dot"></span>Docker</div>
+          <div class="tech-badge"><span class="dot"></span>Kubernetes</div>
+          <div class="tech-badge"><span class="dot"></span>CI/CD</div>
+        </div>
+      </div>
+      <div>
+        <div class="tech-cat-title">Testing</div>
+        <div class="tech-badges">
+          <div class="tech-badge"><span class="dot"></span>Selenium</div>
+          <div class="tech-badge"><span class="dot"></span>Cypress</div>
+          <div class="tech-badge"><span class="dot"></span>Jest</div>
+          <div class="tech-badge"><span class="dot"></span>Postman</div>
+          <div class="tech-badge"><span class="dot"></span>JMeter</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="fade-up" style="text-align:center">
+      <div class="section-label" style="justify-content:center">Meet the Team</div>
+      <h2 class="section-title">The People Behind MITNEXT</h2>
+      <p class="section-sub" style="margin:0 auto">Passionate professionals committed to crafting technology that makes a real difference.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card fade-up delay-1">
+        <div class="team-photo">
+          <img src="{% static 'images/emp.png' %}" alt="" srcset="">
+          <a href="#" class="team-linkedin"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Founder / CEO</div>
+          <div class="team-role">Leadership & Strategy</div>
+        </div>
+      </div>
+      <div class="team-card fade-up delay-2">
+        <div class="team-photo">
+          <img src="{% static 'images/emp.png' %}" alt="" srcset="">
+          <a href="#" class="team-linkedin"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div class="team-body">
+          <div class="team-name">Lead Developer</div>
+          <div class="team-role">Full-Stack Engineering</div>
+        </div>
+      </div>
+      <div class="team-card fade-up delay-3">
+         <div class="team-photo">
+          <img src="{% static 'images/emp.png' %}" alt="" srcset="">
+          <a href="#" class="team-linkedin"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div class="team-body">
+          <div class="team-name">UX Lead</div>
+          <div class="team-role">Design & User Research</div>
+        </div>
+      </div>
+      <div class="team-card fade-up delay-4">
+        <div class="team-photo">
+          <img src="{% static 'images/emp.png' %}" alt="" srcset="">
+          <a href="#" class="team-linkedin"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+        <div class="team-body">
+          <div class="team-name">QA Engineer</div>
+          <div class="team-role">Quality Assurance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="fade-up" style="text-align:center">
+      <div class="section-label" style="justify-content:center">Client Stories</div>
+      <h2 class="section-title">What Our Clients Say</h2>
+    </div>
+    <div class="testimonial-carousel fade-up delay-1">
+      <div class="testimonial-track" id="testimonialTrack">
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <p class="testimonial-quote">MITNEXT delivered our platform on time and exceeded every expectation. Their attention to technical detail and proactive communication made the entire process smooth and stress-free. We've seen a 40% improvement in user engagement since launch.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div>
+                <div class="testimonial-name">Rahul Mehta</div>
+                <!-- <div class="testimonial-company">CEO, HealthBridge Technologies</div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <p class="testimonial-quote">Working with MITNEXT was a game-changer for our e-commerce business. They built a marketplace that scales beautifully under heavy traffic. Their QA process caught issues we never would have found ourselves, resulting in a virtually bug-free launch.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div>
+                <div class="testimonial-name">Priya Sharma</div>
+                <!-- <div class="testimonial-company">Founder, ShopNest India</div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <p class="testimonial-quote">The MITNEXT team understood our complex business requirements from day one. They delivered a robust analytics dashboard that transformed how we make decisions. Their transparent communication throughout the project gave us total confidence.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div>
+                <div class="testimonial-name">Vikram Singh</div>
+                <!-- <div class="testimonial-company">Director, FinTech Analytics Ltd.</div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prevBtn">‹</button>
+        <button class="carousel-dot active" data-index="0"></button>
+        <button class="carousel-dot" data-index="1"></button>
+        <button class="carousel-dot" data-index="2"></button>
+        <button class="carousel-btn" id="nextBtn">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Let's Talk</div>
+      <h2 class="section-title">Start Your Project Today</h2>
+      <p class="section-sub">Ready to build something exceptional? Reach out and let's turn your vision into reality.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="fade-up delay-1">
+        <div class="contact-info-title">Get in Touch</div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg></div>
+          <div>
+            <div class="contact-item-label">Main Office</div>
+            <div class="contact-item-val">665, Near Shamdham Temple,<br>New Nandanvan Layout,<br>Nagpur – 440009, Maharashtra, India.</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+          <div>
+            <div class="contact-item-label">Phone</div>
+            <div class="contact-item-val">+91 XXXXX XXXXX</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-val">hello@mitnext.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg fill="none" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <div class="contact-item-label">Working Hours</div>
+            <div class="contact-item-val">Mon – Sat: 9:00 AM – 7:00 PM IST</div>
+          </div>
+        </div>
+        <div class="map-container">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.5739606363395!2d79.0965239747171!3d21.129544984310407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd4c112f0813237%3A0xf818b747c50acc75!2sMITNEXT%20SOFTWARE%20AND%20SERVICES%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1781507313986!5m2!1sen!2sin"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+</div>
+      </div>
+      <div class="fade-up delay-2">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" placeholder="john@company.com">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+91 00000 00000">
+            </div>
+            <div class="form-group">
+              <label>Company Name</label>
+              <input type="text" placeholder="Your Company Ltd.">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Service Required</label>
+            <select>
+              <option value="">Select a service…</option>
+              <option>Web Development</option>
+              <option>Mobile App Development</option>
+              <option>QA & Testing</option>
+              <option>UI/UX Design</option>
+              <option>Full Product Build</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Project Details</label>
+            <textarea placeholder="Tell us about your project, goals, and any technical requirements…"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Estimated Budget</label>
+            <select>
+              <option value="">Select budget range…</option>
+              <option>Under ₹2 Lakhs</option>
+              <option>₹2 – 5 Lakhs</option>
+              <option>₹5 – 15 Lakhs</option>
+              <option>₹15 – 50 Lakhs</option>
+              <option>Above ₹50 Lakhs</option>
+            </select>
+          </div>
+          <button class="form-submit">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">MIT<span>NEXT</span></div>
+        <p class="footer-desc">MITNEXT Software & Services is Nagpur's trusted technology partner — delivering custom software, mobile apps, QA, and design solutions that empower businesses to grow and lead in the digital age.</p>
+        <div class="social-icons">
+          <a href="#" class="social-icon" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#team">Our Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#services">Web Development</a></li>
+          <li><a href="#services">Mobile Apps</a></li>
+          <li><a href="#services">QA & Testing</a></li>
+          <li><a href="#services">UI/UX Design</a></li>
+          <li><a href="#contact">Custom Solutions</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item">
+          <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+          <span>665, New Nandanvan Layout,<br>Nagpur – 440009, MH, India</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span>hello@mitnext.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <span>+91 XXXXX XXXXX</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MITNEXT Software & Services Pvt. Ltd. All rights reserved.</span>
+      <span>Nagpur, Maharashtra, India</span>
+    </div>
+  </div>
+</footer>
+
+<script src="{% static 'js/home.js' %}"></script>
+</body>
+</html>

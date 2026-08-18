@@ -1,0 +1,64 @@
+{% extends "layout/app_shell.html" %}
+
+{% block page_title %}Payment{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>Payment</h2>
+    <p>Record or update a payment against an invoice</p>
+</div>
+
+<div class="shell-card">
+    <div class="shell-card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Invoice</label>
+                    {{ form.invoice }}
+                    {% if form.invoice.errors %}
+                        <div class="text-danger small mt-1">{{ form.invoice.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Payment Date</label>
+                    {{ form.payment_date }}
+                    {% if form.payment_date.errors %}
+                        <div class="text-danger small mt-1">{{ form.payment_date.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Payment Mode</label>
+                    {{ form.payment_mode }}
+                    {% if form.payment_mode.errors %}
+                        <div class="text-danger small mt-1">{{ form.payment_mode.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Amount</label>
+                    {{ form.amount }}
+                    {% if form.amount.errors %}
+                        <div class="text-danger small mt-1">{{ form.amount.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Transaction ID</label>
+                    {{ form.transaction_id }}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Remarks</label>
+                    {{ form.remarks }}
+                </div>
+            </div>
+            <button class="btn-shell-primary">Save Payment</button>
+            <a href="{% url 'payment_list' %}" class="btn btn-outline-secondary"
+               hx-get="{% url 'payment_list' %}" hx-select="#main-content" hx-target="#main-content"
+               hx-swap="outerHTML" hx-push-url="true">
+                Back
+            </a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

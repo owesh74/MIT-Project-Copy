@@ -1,0 +1,71 @@
+{% extends "layout/app_shell.html" %}
+
+{% block page_title %}GST Configuration{% endblock %}
+
+{% block content %}
+
+<div class="page-heading d-flex justify-content-between align-items-start flex-wrap gap-2">
+    <div>
+        <h2>GST Configuration</h2>
+        <p>Manage GST slabs used across services and invoices</p>
+    </div>
+    <a href="{% url 'add_gst' %}" class="btn-shell-primary text-decoration-none"
+       hx-get="{% url 'add_gst' %}" hx-select="#main-content" hx-target="#main-content"
+       hx-swap="outerHTML" hx-push-url="true">
+        <i class="fa-solid fa-plus me-1"></i> Add GST
+    </a>
+</div>
+
+<div class="shell-card">
+    <div class="shell-card-body p-0">
+        <table class="shell-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>GST %</th>
+                    <th>CGST</th>
+                    <th>SGST</th>
+                    <th>IGST</th>
+                    <th>Status</th>
+                    <th width="180">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for g in gst %}
+                <tr>
+                    <td>{{ g.id }}</td>
+                    <td>{{ g.gst_name }}</td>
+                    <td>{{ g.gst_percentage }}</td>
+                    <td>{{ g.cgst }}</td>
+                    <td>{{ g.sgst }}</td>
+                    <td>{{ g.igst }}</td>
+                    <td>
+                        {% if g.is_active %}
+                            <span class="badge-active">Active</span>
+                        {% else %}
+                            <span class="badge-inactive">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_gst' g.id %}" class="btn btn-sm btn-outline-primary"
+                           hx-get="{% url 'edit_gst' g.id %}" hx-select="#main-content"
+                           hx-target="#main-content" hx-swap="outerHTML" hx-push-url="true">
+                            Edit
+                        </a>
+                        <a href="{% url 'delete_gst' g.id %}"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Delete this GST Configuration?');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="8" class="text-center text-muted py-4">No GST Configuration Found.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "layout/app_shell.html" %}
+
+{% block page_title %}Company Profile{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <h2>Company Profile</h2>
+    <p>Your organization's billing details, used on invoices</p>
+</div>
+
+<div class="shell-card">
+    <div class="shell-card-body">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Company Name</label>
+                    {{ form.company_name }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Owner Name</label>
+                    {{ form.owner_name }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Phone</label>
+                    {{ form.phone }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">GST Number</label>
+                    {{ form.gst_number }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">PAN Number</label>
+                    {{ form.pan_number }}
+                </div>
+                <div class="col-12 mb-3">
+                    <label class="form-label">Address</label>
+                    {{ form.address }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">City</label>
+                    {{ form.city }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">State</label>
+                    {{ form.state }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Country</label>
+                    {{ form.country }}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Pincode</label>
+                    {{ form.pincode }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Bank Name</label>
+                    {{ form.bank_name }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Account Number</label>
+                    {{ form.account_number }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">IFSC Code</label>
+                    {{ form.ifsc_code }}
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label class="form-label">Company Logo</label>
+                    {{ form.company_logo }}
+                </div>
+            </div>
+            <button class="btn-shell-primary">Save Company Profile</button>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary"
+               hx-get="{% url 'dashboard' %}" hx-select="#main-content" hx-target="#main-content"
+               hx-swap="outerHTML" hx-push-url="true">
+                Back
+            </a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
